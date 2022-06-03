@@ -1,4 +1,4 @@
-
+package SIQ_PE1;
 
 import java.util.*;
 class ParkingLot {
@@ -27,7 +27,11 @@ class ParkingLot {
     public void park(String vehicleNumber,int age){
         if(slotsAvailable.size()>0){
             int slot = slotsAvailable.poll();
-            vehicleNumberToSlotMapping.put(vehicleNumber,slot);
+            if(vehicleNumberToSlotMapping.containsKey(vehicleNumber)){
+                System.out.println("vehicle number "+vehicleNumber+" is already parked.");
+                return;
+            }
+            vehicleNumberToSlotMapping.put(vehicleNumber,slot);//assuming same vehicle number already parked would be parked again
             slots[slot]=new VehicleDetails(vehicleNumber,age);
             if(ageToVehiclesMapping.containsKey(age)){
                 ageToVehiclesMapping.get(age).add(vehicleNumber);
@@ -54,11 +58,24 @@ class ParkingLot {
         }
     }
     public void slotNumberForCarWithNumber(String vehicleNumber){
-        System.out.println(vehicleNumberToSlotMapping.get(vehicleNumber));
+        if(vehicleNumberToSlotMapping.containsKey(vehicleNumber)){
+            System.out.println(vehicleNumberToSlotMapping.get(vehicleNumber));
+        }
+        else{
+            System.out.println("No vehicle number "+vehicleNumber+" present in the parking lot");
+        }
     }
     public void leave(int slot){
+        if(slot>slots.length || slot<=0){
+            System.out.println("please insert a valid slot number");
+            return;
+        }
         slotsAvailable.add(slot);
         VehicleDetails vehicle =slots[slot];
+        if(vehicle==null){
+            System.out.println("please insert a valid slot number");
+            return;
+        }
         vehicleNumberToSlotMapping.remove(vehicle.getVehicleNumber());
         if(ageToVehiclesMapping.get(vehicle.getDriverAge()).size()==1){
             ageToVehiclesMapping.remove(vehicle.getDriverAge());
