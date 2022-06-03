@@ -1,4 +1,4 @@
-package SIQ_PE1;
+
 class VehicleDetails{
     private String vehicleNumber;
     private int driverAge;

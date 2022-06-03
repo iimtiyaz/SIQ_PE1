@@ -1,4 +1,3 @@
-package SIQ_PE1;
 
 import java.util.*;
 class ParkingLot {
