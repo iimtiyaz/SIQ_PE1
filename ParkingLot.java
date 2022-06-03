@@ -21,7 +21,7 @@ class ParkingLot {
         }
         vehicleNumberToSlotMapping =new HashMap<>();
         ageToVehiclesMapping =new HashMap<>();
-        System.out.println("created a parking lot of size "+N);
+        System.out.println("Created parking of "+N+" slots");
     }
     public void park(String vehicleNumber,int age){
         if(slotsAvailable.size()>0){
@@ -40,20 +40,25 @@ class ParkingLot {
                 vehicles.add(vehicleNumber);
                 ageToVehiclesMapping.put(age,vehicles);
             }
-            System.out.println("parked vehicle Number "+vehicleNumber+" at slot :"+slot);
+            System.out.println("Car with vehicle registration number "+"\""+vehicleNumber+"\"" +" has been parked at slot number "+slot);
         }
         else{
             System.out.println("parking lot is full");
         }
     }
     public void slotNumbersOfDriversOfAge(int age){
+    
         if(ageToVehiclesMapping.containsKey(age)){
-            for(String vehicleNumber :ageToVehiclesMapping.get(age)){
-                System.out.println(vehicleNumberToSlotMapping.get(vehicleNumber));
-            }
+            Iterator value = ageToVehiclesMapping.get(age).iterator();
+        while (value.hasNext()) { System.out.print(vehicleNumberToSlotMapping.get(value.next()));
+          if(value.hasNext()){
+            System.out.print(",");
+          }
+        }
+          System.out.println();
         }
         else{
-            System.out.println("No vehicle with drivers age "+age+" available in the parking lot.");
+            System.out.println("No car with drivers age "+age+" available in the parking lot.");
         }
     }
     public void slotNumberForCarWithNumber(String vehicleNumber){
@@ -82,7 +87,7 @@ class ParkingLot {
         else{
             ageToVehiclesMapping.get(vehicle.getDriverAge()).remove(vehicle.getVehicleNumber());
         }
-        System.out.println("unparked vehicle Number "+vehicle.getVehicleNumber()+" from slot :"+slot);
+        System.out.println("Slot number "+slot+" vacated, the car with vehicle registration number "+"\""+vehicle.getVehicleNumber()+"\""+ " left the space, the driver of the car was of age "+vehicle.getDriverAge());
         slots[slot]=null;
     }
     public void vehicleRegistrationNumberForDriverOfAge(int age){
